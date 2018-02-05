@@ -1,4 +1,4 @@
-#create network interface 
+#create network interface
 resource "google_compute_network" "platform" {
   name       = "${var.platform-name}"
 }
