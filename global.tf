@@ -21,6 +21,36 @@ resource "google_compute_firewall" "ssh" {
    source_ranges = ["0.0.0.0/0"]
 }
 
+
+#Monitoring Security Group
+resource "google_compute_firewall" "monitoring_sg" {
+  name    = "${var.platform-name}-monitoring_sg"
+  network = "${google_compute_network.platform.name}"
+
+  allow {
+    protocol = "icmp"
+  }
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22", "80", "443", "9200", "5043", "5601", "5666"]
+  }
+
+   source_ranges = ["0.0.0.0/0"]
+}
+
+# Rules Explanation
+# ICMP
+# 22
+# 80 HTTP for Nagios
+# 443  HTTPs for Nagios
+# 9200 Elasticsearch
+# 5043 Logstash
+# 5601 Kibana
+# 5666 Nagios NRPE
+
+
+
 #Create subnet
 resource "google_compute_subnetwork" "dev" {
   name          = "dev-${var.platform-name}-${var.gcloud-region}"
