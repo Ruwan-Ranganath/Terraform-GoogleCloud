@@ -15,7 +15,7 @@ resource "google_compute_instance" "wso2telcoanalytics01" {
 }
 network_interface {
    network = "${google_compute_network.platform.name}"
-   access_config {}
+   subnetwork = "${google_compute_subnetwork.dev.name}"
 }
 service_account {
    scopes = ["userinfo-email", "compute-ro", "storage-ro"]
@@ -40,8 +40,8 @@ resource "google_compute_instance" "wso2telcoanalytics02" {
    }
 }
 network_interface {
-   network = "default"
-   access_config {}
+   network = "${google_compute_network.platform.name}"
+   subnetwork = "${google_compute_subnetwork.dev.name}"
 }
 service_account {
    scopes = ["userinfo-email", "compute-ro", "storage-ro"]

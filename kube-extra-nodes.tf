@@ -11,11 +11,12 @@ resource "google_compute_instance" "puppetmaster" {
    boot_disk {
       initialize_params {
       image = "ubuntu-1604-lts"
+      size = "50"
    }
 }
 network_interface {
    network = "${google_compute_network.platform.name}"
-   access_config {}
+   subnetwork = "${google_compute_subnetwork.dev.name}"
 }
 service_account {
    scopes = ["userinfo-email", "compute-ro", "storage-ro"]
@@ -36,6 +37,7 @@ resource "google_compute_instance" "bastion" {
    boot_disk {
       initialize_params {
       image = "ubuntu-1604-lts"
+      size = "50"
    }
 }
 network_interface {
@@ -64,7 +66,8 @@ resource "google_compute_instance" "dockerregistry" {
 }
 network_interface {
    network = "${google_compute_network.platform.name}"
-   access_config {}
+   subnetwork = "${google_compute_subnetwork.dev.name}"
+   
 }
 service_account {
    scopes = ["userinfo-email", "compute-ro", "storage-ro"]
