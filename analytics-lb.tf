@@ -1,12 +1,12 @@
-resource "google_compute_region_backend_service" "foobar" {
-  name             = "blablah"
-  description      = "Hello World 1234"
+resource "google_compute_region_backend_service" "analytics-lb" {
+  name             = "analytics-lb"
+  description      = "analytics-lb"
   protocol         = "TCP"
   timeout_sec      = 10
   session_affinity = "CLIENT_IP"
 
   backend {
-    group = "${google_compute_region_instance_group_manager.foo.instance_group}"
+    group = "${google_compute_instance.wso2telcoanalytics01.name}"
   }
 
   health_checks = ["${google_compute_health_check.default.self_link}"]
@@ -14,11 +14,11 @@ resource "google_compute_region_backend_service" "foobar" {
 
 
 resource "google_compute_health_check" "default" {
-  name               = "test"
+  name               = "analytics-health-check"
   check_interval_sec = 1
   timeout_sec        = 1
 
   tcp_health_check {
-    port = "80"
+    port = "22"
   }
 }   
