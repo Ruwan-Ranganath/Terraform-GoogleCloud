@@ -16,7 +16,6 @@ resource "google_compute_instance" "puppetmaster" {
 }
 network_interface {
    network = "${google_compute_network.platform.name}"
-   subnetwork = "${google_compute_subnetwork.dev.name}"
 }
 service_account {
    scopes = ["userinfo-email", "compute-ro", "storage-ro"]
@@ -66,7 +65,6 @@ resource "google_compute_instance" "dockerregistry" {
 }
 network_interface {
    network = "${google_compute_network.platform.name}"
-   subnetwork = "${google_compute_subnetwork.dev.name}"
    
 }
 service_account {

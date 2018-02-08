@@ -3,6 +3,10 @@ resource "google_compute_network" "platform" {
   name       = "${var.platform-name}"
 }
 
+#create network interface for monitoring
+resource "google_compute_network" "monitoring" {
+  name       = "${var.monitoring-network-name}"
+}
 
 #Open ports
 resource "google_compute_firewall" "ssh" {
@@ -36,7 +40,7 @@ resource "google_compute_firewall" "ssh" {
 # 5666 Nagios NRPE
 resource "google_compute_firewall" "monitoring" {
   name    = "${var.platform-name}-monitoring"
-  network = "${google_compute_network.platform.name}"
+  network = "${google_compute_network.monitoring.name}"
 
   allow {
     protocol = "icmp"
@@ -102,9 +106,9 @@ resource "google_compute_firewall" "nginx" {
 # Firewall Groups End  =====================================
 
 #Create subnet
-resource "google_compute_subnetwork" "dev" {
-  name          = "dev-${var.platform-name}-${var.gcloud-region}"
-  ip_cidr_range = "10.1.2.0/24"
-  network       = "${google_compute_network.platform.self_link}"
-  region        = "${var.gcloud-region}"
-}
+# resource "google_compute_subnetwork" "dev" {
+#   name          = "dev-${var.platform-name}-${var.gcloud-region}"
+#   ip_cidr_range = "10.1.2.0/24"
+#   network       = "${google_compute_network.platform.self_link}"
+#   region        = "${var.gcloud-region}"
+# }

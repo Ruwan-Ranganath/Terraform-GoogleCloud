@@ -1,5 +1,5 @@
 resource "google_sql_database_instance" "proddb" {
-  name = "database-production"
+  name = "database-production1"
   region = "${var.gcloud-region}"
 #   database_version = "MYSQL_5_7" // define the db type , default is mysql 5.7
 

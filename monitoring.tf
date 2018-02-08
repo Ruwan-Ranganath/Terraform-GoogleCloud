@@ -14,8 +14,7 @@ resource "google_compute_instance" "monitoring1" {
    }
 }
 network_interface {
-   network = "${google_compute_network.platform.name}"
-   subnetwork = "${google_compute_subnetwork.dev.name}"
+   network = "${google_compute_network.monitoring.name}"
 
 }
 service_account {
@@ -42,7 +41,6 @@ resource "google_compute_instance" "monitoring2" {
 }
 network_interface {
    network = "${google_compute_network.platform.name}"
-   subnetwork = "${google_compute_subnetwork.dev.name}"
 }
 service_account {
    scopes = ["userinfo-email", "compute-ro", "storage-ro"]
