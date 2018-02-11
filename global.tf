@@ -112,3 +112,4 @@ resource "google_compute_firewall" "nginx" {
 #   network       = "${google_compute_network.platform.self_link}"
 #   region        = "${var.gcloud-region}"
 # }
+
